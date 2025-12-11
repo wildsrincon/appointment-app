@@ -1,0 +1,58 @@
+{
+  "session_id": "1764944831657",
+  "created_at": "2025-12-05T09:28:51.192152",
+  "updated_at": "2025-12-06T00:32:56.766921",
+  "messages": [
+    {
+      "timestamp": "2025-12-05T09:28:51.198351",
+      "role": "user",
+      "content": "Data 15 dicembre 2025 10 AM email wichos80@gmail.com",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T09:29:21.999193",
+      "role": "user",
+      "content": "consulenza legale",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T09:30:51.214774",
+      "role": "user",
+      "content": "Mi chiamo Wilder Rincon",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:29:02.580872",
+      "role": "user",
+      "content": "Ho bisogno a consulenza generale",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:29:55.886699",
+      "role": "user",
+      "content": "Non ho bisogno di un nuovo appuntamento",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:31:13.830495",
+      "role": "user",
+      "content": "Non ti ho detto che devo fissare un nuovo appuntamento? Puoi aiutarmi?",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:32:56.766891",
+      "role": "user",
+      "content": "No, va bene, ho bisogno di fissare un nuovo appuntamento per una consulenza fiscale.",
+      "message_type": "text",
+      "metadata": null
+    }
+  ],
+  "user_info": null,
+  "appointment_history": []
+}

@@ -1,0 +1,38 @@
+# Pydantic AI Framework
+pydantic-ai>=0.1.0
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+
+# OpenAI Integration
+openai>=1.0.0
+
+# FastAPI Web Server (Production)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# Google Calendar API
+google-api-python-client>=2.100.0
+google-auth-httplib2>=0.1.0
+google-auth-oauthlib>=1.0.0
+
+# Async Support
+httpx>=0.25.0
+aiofiles>=23.0.0
+
+# Italian Timezone Support
+pytz>=2023.3
+
+# Simple Database
+aiosqlite>=0.19.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# Logging
+loguru>=0.7.0
+
+# Error Handling and Retry
+tenacity>=8.2.0

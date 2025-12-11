@@ -1,0 +1,205 @@
+{
+  "session_id": "default",
+  "created_at": "2025-12-05T09:26:54.048909",
+  "updated_at": "2025-12-09T13:58:53.887295",
+  "messages": [
+    {
+      "timestamp": "2025-12-05T09:26:54.052040",
+      "role": "user",
+      "content": "Ho bisogno a consulenza legale",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T12:06:54.089547",
+      "role": "user",
+      "content": "ciao buongiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T12:07:48.072848",
+      "role": "user",
+      "content": "Ho bisogno consulenza generale",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T12:08:59.271406",
+      "role": "user",
+      "content": "Data 23 dicembre 2025 2 PM",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T12:09:28.052529",
+      "role": "user",
+      "content": "email e wichos80@gmail.com",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-05T17:21:56.461573",
+      "role": "user",
+      "content": "Ciao boungiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:26:52.478057",
+      "role": "user",
+      "content": "Ciao buongiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-06T00:27:58.383921",
+      "role": "user",
+      "content": "ciao",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-07T09:21:25.044583",
+      "role": "user",
+      "content": "Ciao boungiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-07T09:22:04.195190",
+      "role": "user",
+      "content": "per favore no mi shiamo Juan no Wilder",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-07T09:34:01.334717",
+      "role": "user",
+      "content": "Ciao buongiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-07T09:38:13.461167",
+      "role": "user",
+      "content": "ciao boungiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-07T10:18:50.248791",
+      "role": "user",
+      "content": "ciao buongiorno",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:09:50.509096",
+      "role": "user",
+      "content": "ciao buongirono",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:11:04.380703",
+      "role": "user",
+      "content": "Sì, certo, devo fissare un appuntamento",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:11:58.068142",
+      "role": "user",
+      "content": "21 dicembre 2025 3 PM consulenza legale per favore",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:12:32.160612",
+      "role": "user",
+      "content": "mia email e wichos80@gmail.com",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:13:35.417090",
+      "role": "user",
+      "content": "Mi chiamo Wilder Rincon no Juan puoi correggerlo",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:18:18.014813",
+      "role": "user",
+      "content": "grazie",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T10:26:04.185145",
+      "role": "user",
+      "content": "Com'è il tempo oggi?",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:27:50.354984",
+      "role": "user",
+      "content": "ciao buon pomeriggio",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:32:37.405106",
+      "role": "user",
+      "content": "Ciao buon pomeriggio",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:39:12.571791",
+      "role": "user",
+      "content": "Ciao buon pomeriggio",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:44:12.725796",
+      "role": "user",
+      "content": "Ciao buon pomeriggio",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:45:05.089381",
+      "role": "user",
+      "content": "Hola como estas",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:57:39.762353",
+      "role": "user",
+      "content": "ciao buon pomeriggio",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:58:33.199929",
+      "role": "user",
+      "content": "Ho bisogno a consulenza fiscale per favore 15 dicembre 2025 10 AM",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2025-12-09T13:58:53.887291",
+      "role": "user",
+      "content": "email e wichos80@gmail.com",
+      "message_type": "text",
+      "metadata": null
+    }
+  ],
+  "user_info": null,
+  "appointment_history": []
+}

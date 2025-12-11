@@ -1,0 +1,16 @@
+{
+  "session_id": "new-session-no-context",
+  "created_at": "2025-12-05T07:52:00.949432",
+  "updated_at": "2025-12-05T07:52:00.950082",
+  "messages": [
+    {
+      "timestamp": "2025-12-05T07:52:00.950075",
+      "role": "user",
+      "content": "Vorrei modificare il mio appuntamento di domani portandolo alle 16:00",
+      "message_type": "text",
+      "metadata": null
+    }
+  ],
+  "user_info": null,
+  "appointment_history": []
+}

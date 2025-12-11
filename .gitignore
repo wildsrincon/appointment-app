@@ -252,3 +252,20 @@ dist
 # Temporary folders
 tmp/
 temp/
+
+# Sensitive files - API keys, credentials, tokens
+*.json.keys
+service-account*.json
+credentials.json
+service-account.json
+token.json
+refresh_token.json
+get_refresh_token.py
+test_calendar_fix.py
+simple_oauth.py
+oauth_setup.py
+
+# Additional sensitive patterns
+**/service-account*.json
+**/.env.production
+**/GOOGLE_OAUTH_GUIDE.md

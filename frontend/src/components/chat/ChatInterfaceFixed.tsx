@@ -7,7 +7,7 @@ import { Card } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
-import { scheduleAIClientFixed } from '@/lib/scheduleai-client-fixed';
+import { scheduleAIClientFixed } from '@/utils/scheduleai-client-fixed';
 import { AppointmentData, Message } from '@/utils/types';
 import { AlertCircle, Bot, Calendar, Clock, Send, User } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';

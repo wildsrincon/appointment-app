@@ -71,7 +71,20 @@ export function Sidebar({
 
   const handleDeleteSession = (e: React.MouseEvent, sessionId: string) => {
     e.stopPropagation(); // Prevent session selection when clicking delete
-    if (window.confirm('Sei sicuro di voler eliminare questa conversazione?')) {
+    console.log('🗑️ Delete button clicked for session:', sessionId);
+
+    // Try to use confirm dialog, with fallback for mobile
+    try {
+      const confirmed = window.confirm('Sei sicuro di voler eliminare questa conversazione?');
+      if (confirmed) {
+        console.log('✅ User confirmed deletion');
+        onDeleteSession(sessionId);
+      } else {
+        console.log('❌ User cancelled deletion');
+      }
+    } catch (error) {
+      console.error('❌ Error showing confirmation dialog:', error);
+      // Fallback: try to delete anyway if confirm fails
       onDeleteSession(sessionId);
     }
   };
@@ -133,7 +146,7 @@ export function Sidebar({
               <div key={session.id} className="relative group">
                 <Button
                   variant={currentSessionId === session.id ? "secondary" : "ghost"}
-                  className={`w-full justify-start h-auto p-3 text-left pr-12 transition-all duration-200 hover:scale-[1.02] hover:shadow-sm ${currentSessionId === session.id
+                  className={`w-full justify-start h-auto p-3 text-left pr-16 transition-all duration-200 hover:scale-[1.02] hover:shadow-sm ${currentSessionId === session.id
                       ? 'bg-secondary hover:bg-secondary/80'
                       : 'hover:bg-accent/50 dark:hover:bg-gray-800'
                     }`}
@@ -162,13 +175,13 @@ export function Sidebar({
                   </div>
                 </Button>
 
-                {/* Delete button - only visible on hover */}
+                {/* Delete button - visible on hover and always accessible */}
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-200 p-1 h-8 w-8 hover:bg-red-50 dark:hover:bg-red-900/20 hover:scale-110"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-60 group-hover:opacity-100 transition-all duration-200 p-1 h-8 w-8 hover:bg-red-50 dark:hover:bg-red-900/20 hover:scale-110 hover:opacity-100"
                   onClick={(e) => handleDeleteSession(e, session.id)}
-                  title="Elimina conversazione"
+                  title="Elimina conversazione (Shift+Click)"
                 >
                   <Trash2 className="w-4 h-4 text-destructive hover:text-red-600 dark:hover:text-red-400" />
                 </Button>

@@ -178,10 +178,10 @@ export const EnhancedChatInput: React.FC<EnhancedChatInputProps> = ({
                   size="sm"
                   onClick={onAttachmentClick}
                   disabled={disabled}
-                  className="h-10 w-10 p-0"
+                  className="h-10 w-10 p-0 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:scale-110 transition-all duration-200 group"
                   title="Allega file"
                 >
-                  <Paperclip className="w-4 h-4" />
+                  <Paperclip className="w-4 h-4 text-muted-foreground group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
                 </Button>
               )}
 
@@ -191,10 +191,10 @@ export const EnhancedChatInput: React.FC<EnhancedChatInputProps> = ({
                   size="sm"
                   onClick={onVoiceRecordClick}
                   disabled={disabled}
-                  className="h-10 w-10 p-0"
+                  className="h-10 w-10 p-0 hover:bg-green-50 dark:hover:bg-green-900/20 hover:scale-110 transition-all duration-200 group"
                   title="Registra messaggio vocale"
                 >
-                  <Mic className="w-4 h-4" />
+                  <Mic className="w-4 h-4 text-muted-foreground group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors" />
                 </Button>
               )}
 
@@ -203,61 +203,69 @@ export const EnhancedChatInput: React.FC<EnhancedChatInputProps> = ({
                 size="sm"
                 onClick={() => setShowEmojis(!showEmojis)}
                 disabled={disabled}
-                className="h-10 w-10 p-0"
+                className="h-10 w-10 p-0 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:scale-110 transition-all duration-200 group"
                 title="Inserisci emoji"
               >
-                <Smile className="w-4 h-4" />
+                <Smile className="w-4 h-4 text-muted-foreground group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors" />
               </Button>
             </div>
 
             {/* Text Input */}
             <div className="flex-1 relative">
-              <Textarea
-                ref={textareaRef}
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                onPaste={handlePaste}
-                onCompositionStart={() => setIsComposing(true)}
-                onCompositionEnd={() => setIsComposing(false)}
-                placeholder={placeholder}
-                disabled={disabled || isSending}
-                className="min-h-[48px] max-h-48 resize-none pr-12 border-2 focus:border-blue-500 transition-colors"
-                rows={1}
-                style={{
-                  height: 'auto',
-                  minHeight: '48px'
-                }}
-                aria-label={placeholder}
-                aria-describedby="input-help"
-              />
+              <div className="relative">
+                <Textarea
+                  ref={textareaRef}
+                  value={inputValue}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  onPaste={handlePaste}
+                  onCompositionStart={() => setIsComposing(true)}
+                  onCompositionEnd={() => setIsComposing(false)}
+                  placeholder={placeholder}
+                  disabled={disabled || isSending}
+                  className="min-h-[48px] max-h-48 resize-none pr-12 border-2 bg-background/50 backdrop-blur-sm focus:border-blue-500 focus:bg-background/80 transition-all duration-200 shadow-sm hover:shadow-md dark:bg-gray-900/50 dark:focus:bg-gray-900/80 dark:border-gray-700 dark:focus:border-blue-400 dark:shadow-gray-900/20"
+                  rows={1}
+                  style={{
+                    height: 'auto',
+                    minHeight: '48px'
+                  }}
+                  aria-label={placeholder}
+                  aria-describedby="input-help"
+                />
 
-              {/* Character count for long messages */}
-              {charCount > 50 && (
-                <div className="absolute bottom-2 right-12 text-xs text-muted-foreground bg-background/90 px-1 rounded">
-                  {charCount}/{maxLength}
-                </div>
-              )}
+                {/* Enhanced background gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none rounded-md" />
+
+                {/* Character count for long messages */}
+                {charCount > 50 && (
+                  <div className="absolute bottom-2 right-12 text-xs text-muted-foreground bg-background/90 backdrop-blur-sm dark:bg-gray-900/90 border border-border/50 px-2 py-1 rounded-md shadow-sm">
+                    {charCount}/{maxLength}
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Send Button */}
             <Button
               onClick={handleSendMessage}
               disabled={!inputValue.trim() || disabled || isSending}
-              className="h-12 px-6 shrink-0"
+              className="h-12 px-6 shrink-0 justify-start bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white border-0 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:hover:scale-100"
               size="default"
             >
-              {isSending ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                  Invio...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4 mr-2" />
-                  Invia
-                </>
-              )}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              <div className="relative flex items-center">
+                {isSending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin mr-2 group-hover:rotate-180 transition-transform duration-500" />
+                    <span className="font-medium">Invio...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform duration-200" />
+                    <span className="font-medium">Invia</span>
+                  </>
+                )}
+              </div>
             </Button>
           </div>
 
@@ -281,38 +289,38 @@ export const EnhancedChatInput: React.FC<EnhancedChatInputProps> = ({
 
         {/* Quick Actions (Mobile) */}
         <div className="mt-3 sm:hidden">
-          <div className="flex justify-around">
+          <div className="grid grid-cols-2 gap-2">
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setInputValue(prev => prev + 'Vorrei prenotare un appuntamento')}
-              className="text-xs h-8 px-3"
+              className="text-xs h-8 px-3 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:scale-105 transition-all duration-200 group border border-border/50"
             >
-              📅 Prenota
+              <span className="group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">📅 Prenota</span>
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setInputValue(prev => prev + 'Quali orari sono disponibili?')}
-              className="text-xs h-8 px-3"
+              className="text-xs h-8 px-3 hover:bg-green-50 dark:hover:bg-green-900/20 hover:scale-105 transition-all duration-200 group border border-border/50"
             >
-              ⏰ Orari
+              <span className="group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">⏰ Orari</span>
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setInputValue(prev => prev + 'Vorrei modificare la mia prenotazione')}
-              className="text-xs h-8 px-3"
+              className="text-xs h-8 px-3 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 hover:scale-105 transition-all duration-200 group border border-border/50"
             >
-              ✏️ Modifica
+              <span className="group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">✏️ Modifica</span>
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setInputValue(prev => prev + 'Aiuto')}
-              className="text-xs h-8 px-3"
+              className="text-xs h-8 px-3 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:scale-105 transition-all duration-200 group border border-border/50"
             >
-              ❓ Aiuto
+              <span className="group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">❓ Aiuto</span>
             </Button>
           </div>
         </div>

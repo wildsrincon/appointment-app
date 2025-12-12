@@ -96,13 +96,19 @@ export default function ChatPage() {
   };
 
   const handleDeleteSession = (sessionId: string) => {
+    console.log('🗑️ Attempting to delete session:', sessionId);
+
     setSessions(prev => {
+      console.log('📝 Current sessions before deletion:', prev.length);
       const updatedSessions = prev.filter(session => session.id !== sessionId);
+      console.log('📝 Sessions after deletion:', updatedSessions.length);
 
       // If deleting current session, switch to another session or create new one
       if (sessionId === currentSessionId) {
         if (updatedSessions.length > 0) {
-          setCurrentSessionId(updatedSessions[0].id);
+          const newCurrentId = updatedSessions[0].id;
+          console.log('🔄 Switching to session:', newCurrentId);
+          setCurrentSessionId(newCurrentId);
         } else {
           // Create new default session if no sessions left
           const newSession: ChatSession = {
@@ -120,12 +126,16 @@ export default function ChatPage() {
             updatedAt: new Date()
           };
           updatedSessions.push(newSession);
+          console.log('✨ Created new default session:', newSession.id);
           setCurrentSessionId(newSession.id);
         }
       }
 
       return updatedSessions;
     });
+
+    // Show success message
+    console.log('✅ Session deletion completed');
   };
 
   const handleSettings = () => {

@@ -29,6 +29,23 @@ except ImportError as e:
     logging.warning(f"⚠️ Could not import ScheduleAI agent: {e}")
     AGENT_AVAILABLE = False
 
+# Import database components
+try:
+    from database import get_database, close_database
+    from api_appointments import (
+        create_appointment_db, get_appointments_db, get_appointment_db,
+        update_appointment_db, cancel_appointment_db,
+        create_client_db, get_client_db, list_clients_db,
+        check_availability_db, get_appointment_stats_db,
+        ClientAppointmentRequest, AppointmentResponse, ClientResponse,
+        AvailabilityResponse
+    )
+    DATABASE_AVAILABLE = True
+    logging.info("✅ Database components imported successfully")
+except ImportError as e:
+    logging.debug(f"Database components not available (non-critical): {e}")
+    DATABASE_AVAILABLE = False
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -49,6 +66,15 @@ async def lifespan(app: FastAPI):
     logger.info("🚀 Starting ScheduleAI server...")
 
     try:
+        # Initialize database if available
+        if DATABASE_AVAILABLE:
+            try:
+                db = await get_database()
+                logger.info("✅ Database initialized successfully")
+            except Exception as e:
+                logger.error(f"❌ Failed to initialize database: {e}")
+                # Continue without database - endpoints will handle errors
+
         if AGENT_AVAILABLE:
             # Load settings
             try:
@@ -95,6 +121,14 @@ async def lifespan(app: FastAPI):
     # Shutdown
     logger.info("🛑 Shutting down ScheduleAI server...")
 
+    # Close database connections
+    if DATABASE_AVAILABLE:
+        try:
+            await close_database()
+            logger.info("✅ Database connections closed")
+        except Exception as e:
+            logger.error(f"⚠️ Error closing database: {e}")
+
 
 # Initialize FastAPI app
 app = FastAPI(
@@ -110,11 +144,14 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",  # Next.js frontend
         "http://127.0.0.1:3000",
-        "https://your-production-domain.com",  # Add your production domain
+        "http://localhost:3001",  # Alternative port
+        "http://127.0.0.1:3001",
+        "*"  # Allow all origins for development (restrict in production)
     ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 
@@ -222,6 +259,14 @@ async def health_check():
         timestamp=datetime.now(),
         version="1.0.0"
     )
+
+
+@app.options("/chat")
+async def chat_options():
+    """Handle OPTIONS preflight requests for /chat endpoint."""
+    return {
+        "status": "ok"
+    }
 
 
 @app.post("/chat")
@@ -695,6 +740,114 @@ async def get_consultants():
             },
         ]
     }
+
+
+# === Enhanced Database Endpoints ===
+
+if DATABASE_AVAILABLE:
+    @app.post("/appointments/db", response_model=AppointmentResponse)
+    async def create_appointment_endpoint(appointment_data: ClientAppointmentRequest):
+        """
+        Enhanced appointment creation with database persistence.
+
+        This endpoint replaces the basic appointment creation with full database integration,
+        client management, availability checking, and proper validation.
+        """
+        return await create_appointment_db(appointment_data)
+
+    @app.get("/appointments/db", response_model=List[AppointmentInDB])
+    async def list_appointments_endpoint(
+        business_id: Optional[str] = Query(None),
+        consultant_id: Optional[str] = Query(None),
+        client_email: Optional[str] = Query(None),
+        status: Optional[AppointmentStatus] = Query(None),
+        start_date: Optional[datetime] = Query(None),
+        end_date: Optional[datetime] = Query(None),
+        limit: int = Query(default=100, le=1000),
+        offset: int = Query(default=0, ge=0)
+    ):
+        """
+        List appointments with advanced filtering and database persistence.
+
+        Supports filtering by business, consultant, client, status, and date range.
+        Returns appointments with full client and consultant information.
+        """
+        return await get_appointments_db(
+            business_id=business_id,
+            consultant_id=consultant_id,
+            client_email=client_email,
+            status=status,
+            start_date=start_date,
+            end_date=end_date,
+            limit=limit,
+            offset=offset
+        )
+
+    @app.get("/appointments/db/{appointment_id}", response_model=AppointmentInDB)
+    async def get_appointment_endpoint(appointment_id: str):
+        """Get a specific appointment by ID with full details."""
+        return await get_appointment_db(appointment_id)
+
+    @app.put("/appointments/db/{appointment_id}", response_model=AppointmentResponse)
+    async def update_appointment_endpoint(
+        appointment_id: str,
+        appointment_data: AppointmentUpdate
+    ):
+        """Update an existing appointment with validation and conflict checking."""
+        return await update_appointment_db(appointment_id, appointment_data)
+
+    @app.post("/appointments/db/{appointment_id}/cancel", response_model=AppointmentResponse)
+    async def cancel_appointment_endpoint(appointment_id: str):
+        """Cancel an appointment by updating its status."""
+        return await cancel_appointment_db(appointment_id)
+
+    @app.post("/clients/db", response_model=ClientResponse)
+    async def create_client_endpoint(client_data: ClientCreate):
+        """Create a new client with database persistence."""
+        return await create_client_db(client_data)
+
+    @app.get("/clients/db", response_model=List[ClientInDB])
+    async def list_clients_endpoint(
+        limit: int = Query(default=100, le=1000),
+        offset: int = Query(default=0, ge=0)
+    ):
+        """List clients with pagination."""
+        return await list_clients_db(limit=limit, offset=offset)
+
+    @app.get("/clients/db/{email}", response_model=ClientInDB)
+    async def get_client_endpoint(email: str):
+        """Get a specific client by email."""
+        return await get_client_db(email)
+
+    @app.get("/availability/db", response_model=AvailabilityResponse)
+    async def check_availability_endpoint(
+        consultant_id: str,
+        start_time: datetime,
+        duration_minutes: int = Query(default=30)
+    ):
+        """
+        Check consultant availability for a specific time slot.
+
+        Returns availability status and conflicting appointments if any.
+        """
+        return await check_availability_db(
+            consultant_id=consultant_id,
+            start_time=start_time,
+            duration_minutes=duration_minutes
+        )
+
+    @app.get("/appointments/db/stats/{business_id}")
+    async def get_appointment_stats_endpoint(
+        business_id: str,
+        start_date: Optional[datetime] = Query(None),
+        end_date: Optional[datetime] = Query(None)
+    ):
+        """Get appointment statistics for a business."""
+        return await get_appointment_stats_db(
+            business_id=business_id,
+            start_date=start_date,
+            end_date=end_date
+        )
 
 
 # Error handlers

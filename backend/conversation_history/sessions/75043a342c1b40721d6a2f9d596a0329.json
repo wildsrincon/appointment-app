@@ -1,0 +1,44 @@
+{
+  "session_id": "1767807883475",
+  "created_at": "2026-01-07T12:44:48.352535",
+  "updated_at": "2026-01-07T12:51:01.877962",
+  "messages": [
+    {
+      "timestamp": "2026-01-07T12:44:48.354137",
+      "role": "user",
+      "content": "ciao",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2026-01-07T12:46:10.578205",
+      "role": "user",
+      "content": "se ho bisogno di fissare un appuntamento per una consulenza legale",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2026-01-07T12:47:02.949302",
+      "role": "user",
+      "content": "Sì, certo, ho bisogno di un appuntamento per il 20 gennaio 2026 alle 17:00.",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2026-01-07T12:47:42.291874",
+      "role": "user",
+      "content": "Mi chiamo Wilder Rincon il emaiol e wichos80@gmail.com",
+      "message_type": "text",
+      "metadata": null
+    },
+    {
+      "timestamp": "2026-01-07T12:51:01.877903",
+      "role": "user",
+      "content": "Grazie mille, a presto!",
+      "message_type": "text",
+      "metadata": null
+    }
+  ],
+  "user_info": null,
+  "appointment_history": []
+}

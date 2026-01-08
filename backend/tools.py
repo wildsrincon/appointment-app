@@ -611,7 +611,11 @@ def register_tools(agent, deps_type):
                         # Log appointment creation to conversation history
                         try:
                             if hasattr(ctx.deps, 'session_id') and ctx.deps.session_id:
-                                from .conversation_history import conversation_manager
+                                # Try relative import first, then absolute import
+                                try:
+                                    from .conversation_history import conversation_manager
+                                except ImportError:
+                                    from conversation_history import conversation_manager
 
                                 appointment_metadata = {
                                     "event_id": result.get('event_id'),
@@ -634,7 +638,7 @@ def register_tools(agent, deps_type):
                                 )
                                 logger.info(f"💾 Logged appointment creation to conversation history: {ctx.deps.session_id}")
                         except Exception as log_error:
-                            logger.warning(f"Failed to log appointment creation to history: {log_error}")
+                            logger.debug(f"Failed to log appointment creation to history (non-critical): {log_error}")
 
                         return {
                             "success": True,

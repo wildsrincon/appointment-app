@@ -72,6 +72,42 @@ class ScheduleAgentDependencies:
             **overrides
         )
 
+    async def get_db_client(self):
+        """Get database client (lazy initialization)."""
+        if self._db_client is None:
+            try:
+                from .database import get_database
+                self._db_client = await get_database()
+                logger.info("Database client initialized")
+            except ImportError as e:
+                logger.error(f"Failed to import database module: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"Failed to initialize database client: {e}")
+                raise
+        return self._db_client
+
+    def get_google_client(self):
+        """Get Google Calendar client (lazy initialization)."""
+        if self._google_client is None:
+            try:
+                from .google_calendar import GoogleCalendarClient
+                self._google_client = GoogleCalendarClient(
+                    api_key=self.google_calendar_api_key,
+                    client_id=self.google_client_id,
+                    client_secret=self.google_client_secret,
+                    refresh_token=self.google_refresh_token,
+                    calendar_id=self.default_calendar_id
+                )
+                logger.info("Google Calendar client initialized")
+            except ImportError as e:
+                logger.error(f"Failed to import Google Calendar module: {e}")
+                raise
+            except Exception as e:
+                logger.error(f"Failed to initialize Google Calendar client: {e}")
+                raise
+        return self._google_client
+
 
 def create_dependencies(**overrides) -> ScheduleAgentDependencies:
     """Create dependencies instance with proper configuration loading."""

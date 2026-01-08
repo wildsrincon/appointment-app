@@ -24,8 +24,10 @@ aiofiles>=23.0.0
 # Italian Timezone Support
 pytz>=2023.3
 
-# Simple Database
-aiosqlite>=0.19.0
+# Database - PostgreSQL with SQLAlchemy
+sqlalchemy>=2.0.0
+asyncpg>=0.29.0
+alembic>=1.13.0
 
 # Development & Testing
 pytest>=7.4.0

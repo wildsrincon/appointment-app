@@ -8,7 +8,7 @@ API key validation, and business settings for the scheduling agent.
 from pydantic_settings import BaseSettings
 from pydantic import Field, ConfigDict, field_validator
 from dotenv import load_dotenv
-from typing import Optional, Dict, Any
+from typing import Optional, Dict
 import logging
 
 logger = logging.getLogger(__name__)
@@ -63,6 +63,18 @@ class ScheduleSettings(BaseSettings):
     business_hours_start: str = Field(default="09:00", description="Business hours start")
     business_hours_end: str = Field(default="18:00", description="Business hours end")
     working_days: str = Field(default="1,2,3,4,5", description="Working days (Monday=1)")
+
+    # Database Configuration (REQUIRED for production)
+    database_url: Optional[str] = Field(
+        default=None,
+        description="Full database connection URL (overrides other db settings)"
+    )
+    db_host: str = Field(default="localhost", description="Database host")
+    db_port: str = Field(default="5432", description="Database port")
+    db_name: str = Field(default="scheduleai", description="Database name")
+    db_user: str = Field(default="postgres", description="Database user")
+    db_password: str = Field(default="password", description="Database password")
+    db_ssl_mode: str = Field(default="prefer", description="Database SSL mode")
 
     # Application Settings
     app_env: str = Field(default="development", description="Application environment")

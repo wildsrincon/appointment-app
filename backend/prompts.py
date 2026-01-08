@@ -121,7 +121,11 @@ async def get_dynamic_context(ctx: RunContext[ScheduleAgentDependencies]) -> str
     # Add conversation history if available
     if hasattr(ctx.deps, 'session_id') and ctx.deps.session_id:
         try:
-            from .conversation_history import conversation_manager
+            # Try relative import first, then absolute import
+            try:
+                from .conversation_history import conversation_manager
+            except ImportError:
+                from conversation_history import conversation_manager
 
             # Extract appointment info from conversation
             appointment_info = conversation_manager.extract_appointment_info(ctx.deps.session_id)
@@ -137,7 +141,7 @@ async def get_dynamic_context(ctx: RunContext[ScheduleAgentDependencies]) -> str
                 context_parts.append(f"Ultimo appuntamento creato: {last_appointment.get('title', 'N/A')} il {last_appointment.get('date', 'N/A')}")
 
         except Exception as e:
-            logger.warning(f"Could not load conversation history: {e}")
+            logger.debug(f"Could not load conversation history (non-critical): {e}")
 
     return ". ".join(context_parts) + "." if context_parts else ""
 
